@@ -2,7 +2,7 @@
 
 ## Overview
 
-The **Child-Friendly Vocabulary Study Tool** is a simple and intuitive web application designed to help children study vocabulary words in an engaging and effective manner. Parents can upload a picture of vocabulary words and definitions, which the app processes using a vision API. The child interacts with an interface that reads definitions aloud and allows them to type in the corresponding vocabulary word, receiving immediate feedback.
+The **Child-Friendly Vocabulary Study Tool** is a simple and intuitive web application designed to help children study vocabulary words in an engaging and effective manner. Parents can upload a picture of vocabulary words and definitions, which the app processes using an in-browser OCR library. The child interacts with an interface that reads definitions aloud and allows them to type in the corresponding vocabulary word, receiving immediate feedback.
 
 ## Table of Contents
 
@@ -30,7 +30,7 @@ The **Child-Friendly Vocabulary Study Tool** is a simple and intuitive web appli
   - Easy-to-use "Upload Image" button for uploading images containing vocabulary words and definitions.
   - Supports common image formats like JPEG and PNG.
 - **Accurate Text Extraction**
-  - Utilizes a reliable vision API (e.g., Google Vision API, OCR.space) to extract text from images.
+  - Utilizes a reliable in-browser OCR library (e.g., Tesseract.js) to extract text from images.
   - **Parent Review and Edit**
     - Parents can review and edit the extracted vocabulary words and definitions to ensure accuracy before the child uses them.
 
@@ -79,7 +79,7 @@ The **Child-Friendly Vocabulary Study Tool** is a simple and intuitive web appli
 ### Prerequisites
 
 - A modern web browser (e.g., Chrome, Firefox, Edge, Safari) with JavaScript enabled.
-- Internet connection for accessing the vision API services.
+- Internet connection for accessing the in-browser OCR library.
 
 # Child Vocabulary Study Tool
 
@@ -115,16 +115,20 @@ The **Child-Friendly Vocabulary Study Tool** is a simple and intuitive web appli
 
 ## Configuration
 
-### Vision API Setup
+### In-Browser OCR Setup
 
-1. **Choose a Vision API Service**
-   - Sign up for an API key from a vision API provider (e.g., Google Cloud Vision API).
+1. **Choose an In-Browser OCR Library**
+   - We recommend using Tesseract.js for text extraction from images.
 
-2. **Configure API Key**
-   - Insert your API key into the application's configuration file or environment variables as per the instructions.
+2. **Install the OCR Library**
+   - If using Node.js and npm, install Tesseract.js by running:
 
-3. **Set Required Permissions**
-   - Ensure the API key has permissions for text extraction (OCR) capabilities.
+   ```bash
+   npm install tesseract.js
+   ```
+
+3. **Configure OCR Settings**
+   - Ensure the OCR library is properly configured in your application code.
 
 4. **Text-to-Speech Permissions**
    - Some browsers may require permission to use the text-to-speech features. Allow any prompts that request access.
@@ -174,7 +178,7 @@ The **Child-Friendly Vocabulary Study Tool** is a simple and intuitive web appli
   - Optionally using a framework like React.js or Vue.js for enhanced UI responsiveness.
 
 - **APIs and Libraries**
-  - Vision API: For text extraction from uploaded images (e.g., Google Cloud Vision API).
+  - In-Browser OCR: For text extraction from uploaded images (e.g., Tesseract.js).
   - Web Speech API: For in-browser text-to-speech functionality.
   - Accessibility Libraries: Ensuring the application is accessible to all users.
 
@@ -248,7 +252,7 @@ This project is licensed under the MIT License.
 
 ## Acknowledgments
 
-- **Vision API Providers**: For enabling reliable text extraction services.
+- **In-Browser OCR Providers**: For enabling reliable text extraction services.
 - **Web Speech API**: For providing in-browser text-to-speech capabilities.
 - **Educational Communities**: For inspiring the need for accessible learning tools.
 - **Contributors**: To all who have contributed to making this project better.
