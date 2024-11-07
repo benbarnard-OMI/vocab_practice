@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Child-Friendly Vocabulary Study Tool</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Child-Friendly Vocabulary Study Tool</h1>
+    </header>
+    <main>
+        <section id="upload-section">
+            <h2>Upload Vocabulary Image</h2>
+            <form id="upload-form">
+                <input type="file" id="image-upload" accept="image/*">
+                <button type="submit">Upload Image</button>
+            </form>
+        </section>
+        <section id="extracted-text-section">
+            <h2>Extracted Text</h2>
+            <div id="extracted-text"></div>
+            <button id="edit-text">Edit Text</button>
+        </section>
+        <section id="interaction-section">
+            <h2>Study Session</h2>
+            <button id="play-definition">Play Definition</button>
+            <input type="text" id="answer-input" placeholder="Type your answer here">
+            <button id="submit-answer">Submit Answer</button>
+            <div id="feedback"></div>
+        </section>
+        <section id="progress-section">
+            <h2>Progress</h2>
+            <progress id="progress-bar" value="0" max="100"></progress>
+            <div id="completion-message"></div>
+        </section>
+    </main>
+    <script src="app.js"></script>
+</body>
+</html>
