@@ -1,0 +1,27 @@
+{
+  "name": "child-vocab-study-tool",
+  "version": "1.0.0",
+  "description": "A child-friendly vocabulary study tool with in-browser OCR",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "webpack serve --mode development",
+    "build": "webpack --mode production",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "tesseract.js": "^4.1.1",
+    "canvas-confetti": "^1.6.0",
+    "gsap": "^3.12.2",
+    "@fontsource/comic-neue": "^5.0.8",
+    "@fontsource/lexend": "^5.0.8"
+  },
+  "devDependencies": {
+    "webpack": "^5.88.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1",
+    "css-loader": "^6.8.1",
+    "style-loader": "^3.3.3",
+    "file-loader": "^6.2.0",
+    "process": "^0.11.10"
+  }
+}

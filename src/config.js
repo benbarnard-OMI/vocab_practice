@@ -1,12 +1,11 @@
+// Configuration for OCR settings
 const config = {
-    visionApiKey: process.env.VISION_API_KEY || '',
-    ocrMethod: process.env.OCR_METHOD || 'in-browser',
+    tesseractConfig: {
+        lang: 'eng',
+        logger: m => console.log(m)
+    }
 };
 
-function getConfig() {
+export function getConfig() {
     return config;
 }
-
-module.exports = {
-    getConfig,
-};

@@ -4,38 +4,124 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Child-Friendly Vocabulary Study Tool</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body>
+    <!-- Move settings panel and overlay to top level -->
+    <div id="settings-overlay" class="settings-overlay" role="presentation"></div>
+    <div id="parent-controls" class="settings-panel" role="dialog" aria-labelledby="settings-title">
+        <button class="settings-button close-button" aria-label="Close settings">✕</button>
+        <h3 id="settings-title">Study Settings</h3>
+        <div class="setting-group">
+            <label for="text-size">Text Size</label>
+            <input type="range" id="text-size" min="14" max="32" value="18">
+            <span class="setting-value" aria-live="polite"></span>
+        </div>
+        <div class="setting-group">
+            <label for="speech-rate">Speech Rate</label>
+            <input type="range" id="speech-rate" min="0.5" max="2" step="0.1" value="1">
+            <span class="setting-value" aria-live="polite"></span>
+        </div>
+        <div class="setting-group">
+            <label>
+                <input type="checkbox" id="high-contrast"> High Contrast Mode
+            </label>
+        </div>
+        <div class="setting-group">
+            <label>
+                <input type="checkbox" id="dyslexic-font"> Dyslexia-Friendly Font
+            </label>
+        </div>
+    </div>
+
+    <!-- Main content -->
     <header>
-        <h1>Child-Friendly Vocabulary Study Tool</h1>
+        <div class="mascot"></div>
+        <h1>Vocabulary Adventure</h1>
+        <button id="settings-toggle" class="settings-button" aria-label="Open settings" aria-expanded="false" aria-controls="parent-controls">
+            <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+                <path fill="currentColor" d="M12 15.5A3.5 3.5 0 0 1 8.5 12 3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5 3.5 3.5 0 0 1-3.5 3.5m7.43-2.53c.04-.32.07-.64.07-.97 0-.33-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98 0 .33.03.65.07.97l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65z"/>
+            </svg>
+        </button>
     </header>
+
     <main>
-        <section id="upload-section">
-            <h2>Upload Vocabulary Image</h2>
-            <form id="upload-form">
-                <input type="file" id="image-upload" accept="image/*">
-                <button type="submit">Upload Image</button>
-            </form>
-        </section>
-        <section id="extracted-text-section">
-            <h2>Extracted Text</h2>
-            <div id="extracted-text"></div>
-            <button id="edit-text">Edit Text</button>
-        </section>
-        <section id="interaction-section">
-            <h2>Study Session</h2>
-            <button id="play-definition">Play Definition</button>
-            <input type="text" id="answer-input" placeholder="Type your answer here">
-            <button id="submit-answer">Submit Answer</button>
-            <div id="feedback"></div>
-        </section>
-        <section id="progress-section">
-            <h2>Progress</h2>
-            <progress id="progress-bar" value="0" max="100"></progress>
-            <div id="completion-message"></div>
-        </section>
+        <!-- Parent Mode -->
+        <div id="parent-mode" class="mode-container active">
+            <div class="wizard-step" data-step="1">
+                <h2>Upload Vocabulary List</h2>
+                <div class="upload-container">
+                    <form id="upload-form">
+                        <div class="file-drop-zone">
+                            <input type="file" id="image-upload" accept="image/*">
+                            <div class="upload-prompt">
+                                <svg viewBox="0 0 24 24" width="48" height="48">
+                                    <path d="M19.35 10.04A7.49 7.49 0 0 0 12 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 0 0 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+                                </svg>
+                                <p>Drag & drop your image here or click to browse</p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="wizard-step" data-step="2">
+                <h2>Review & Edit</h2>
+                <div class="review-container">
+                    <div id="extracted-text" class="editable-text" contenteditable="true"></div>
+                    <div class="edit-controls">
+                        <button id="edit-text" class="secondary-button">Edit Text</button>
+                        <button id="start-session" class="primary-button">Start Study Session</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Child Mode -->
+        <div id="child-mode" class="mode-container">
+            <div class="study-interface">
+                <div class="mascot-container">
+                    <div class="mascot-speech-bubble">
+                        <p id="current-task">Listen to the definition and type the word!</p>
+                    </div>
+                    <div class="mascot animated"></div>
+                </div>
+
+                <div class="game-area">
+                    <div class="definition-card">
+                        <button id="play-definition" class="play-button" aria-label="Play definition">
+                            <svg viewBox="0 0 24 24" width="32" height="32">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </button>
+                        <div class="word-input-container">
+                            <input type="text" id="answer-input" 
+                                   placeholder="Type your answer here"
+                                   autocomplete="off"
+                                   aria-label="Your answer">
+                            <button id="submit-answer" class="submit-button">Check</button>
+                        </div>
+                    </div>
+
+                    <div id="feedback" class="feedback-container">
+                        <div class="feedback-message"></div>
+                        <div class="hint-container"></div>
+                    </div>
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-track">
+                        <div id="progress-bar" class="progress-fill"></div>
+                        <div class="progress-stars">
+                            <!-- Stars will be added dynamically -->
+                        </div>
+                    </div>
+                    <div id="completion-message" class="completion-message"></div>
+                </div>
+            </div>
+        </div>
     </main>
-    <script src="app.js"></script>
+    <script src="/bundle.js"></script>
 </body>
 </html>

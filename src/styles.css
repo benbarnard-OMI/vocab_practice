@@ -1,76 +1,414 @@
+/* Import fonts */
+@import '@fontsource/comic-neue';
+@import '@fontsource/lexend';
+
+:root {
+    /* Color Palette */
+    --primary-color: #4CAF50;
+    --primary-light: #81C784;
+    --primary-dark: #388E3C;
+    --secondary-color: #FFC107;
+    --secondary-light: #FFD54F;
+    --secondary-dark: #FFA000;
+    --success-color: #4CAF50;
+    --error-color: #f44336;
+    --background-light: #f0f8ff;
+    --text-primary: #2C3E50;
+    --text-secondary: #607D8B;
+    
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+
+    /* Transitions */
+    --transition-quick: 0.2s ease;
+    --transition-normal: 0.3s ease;
+}
+
+/* Base Styles */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f8ff;
-    color: #333;
+    font-family: 'Lexend', sans-serif;
+    background-color: var(--background-light);
+    color: var(--text-primary);
     margin: 0;
     padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
+/* Header Styles */
 header {
-    background-color: #4CAF50;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     color: white;
+    padding: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.mascot {
+    width: 60px;
+    height: 60px;
+    /* Use a direct import that webpack can handle */
+    background-image: url(./assets/mascot.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+/* Wizard Interface */
+.mode-container {
+    display: none;
+    padding: var(--spacing-xl);
+}
+
+.mode-container.active {
+    display: block;
+}
+
+.wizard-step {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--spacing-xl);
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform var(--transition-normal);
+}
+
+/* File Upload Styles */
+.file-drop-zone {
+    border: 3px dashed var(--primary-light);
+    border-radius: 12px;
+    padding: var(--spacing-xl);
     text-align: center;
-    padding: 1em 0;
+    transition: all var(--transition-normal);
+    cursor: pointer;
+    position: relative;
 }
 
-main {
-    padding: 2em;
+.file-drop-zone:hover {
+    border-color: var(--primary-color);
+    background-color: rgba(76, 175, 80, 0.05);
 }
 
-h1, h2 {
-    font-size: 2em;
-    margin-bottom: 0.5em;
-}
-
-button {
-    font-size: 1.5em;
-    padding: 0.5em 1em;
-    margin: 0.5em 0;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
+.file-drop-zone input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
     cursor: pointer;
 }
 
-button:hover {
-    background-color: #45a049;
+.file-drop-zone.is-loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+/* Study Interface */
+.study-interface {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: var(--spacing-xl);
+}
+
+.mascot-container {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: var(--spacing-xl);
+}
+
+.mascot-speech-bubble {
+    background: white;
+    border-radius: 20px;
+    padding: var(--spacing-md) var(--spacing-lg);
+    margin-left: var(--spacing-md);
+    position: relative;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.mascot-speech-bubble::before {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: 20px;
+    border-style: solid;
+    border-width: 10px 10px 10px 0;
+    border-color: transparent white transparent transparent;
+}
+
+/* Game Area */
+.game-area {
+    background: white;
+    border-radius: 12px;
+    padding: var(--spacing-xl);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-bottom: var(--spacing-xl);
+}
+
+.definition-card {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+.play-button {
+    background: var(--secondary-color);
+    border: none;
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    cursor: pointer;
+    transition: transform var(--transition-quick);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--spacing-lg);
+}
+
+.play-button:hover {
+    transform: scale(1.1);
+    background: var(--secondary-dark);
+}
+
+.word-input-container {
+    display: flex;
+    gap: var(--spacing-md);
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 input[type="text"] {
-    font-size: 1.5em;
-    padding: 0.5em;
-    margin: 0.5em 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    flex: 1;
+    font-size: 1.2rem;
+    padding: var(--spacing-md);
+    border: 2px solid var(--primary-light);
+    border-radius: 8px;
+    transition: border-color var(--transition-quick);
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.submit-button {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: var(--spacing-md) var(--spacing-xl);
+    cursor: pointer;
+    transition: background-color var(--transition-quick);
+}
+
+.submit-button:hover {
+    background: var(--primary-dark);
+}
+
+/* Progress Bar */
+.progress-container {
+    margin-top: var(--spacing-xl);
+}
+
+.progress-track {
+    background: rgba(0,0,0,0.1);
+    height: 20px;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, var(--primary-light), var(--primary-color));
+    height: 100%;
+    width: 0%;
+    transition: width var(--transition-normal);
+    border-radius: 10px;
+}
+
+.progress-stars {
+    position: absolute;
+    top: -15px;
     width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 
-#upload-section, #extracted-text-section, #interaction-section, #progress-section {
-    margin-bottom: 2em;
+/* Settings Button */
+.settings-button {
+    cursor: pointer;
+    padding: var(--spacing-md);
+    border-radius: 50%;
+    background: white;
+    color: var(--primary-dark);
+    border: none;
+    transition: all var(--transition-quick);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    margin-left: auto;
 }
 
-#extracted-text {
-    font-size: 1.5em;
-    background-color: #fff;
-    padding: 1em;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 1em;
+.settings-button:hover {
+    background: var(--secondary-light);
+    transform: rotate(45deg);
 }
 
-#feedback {
-    font-size: 1.5em;
-    margin-top: 1em;
+.settings-button svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
 }
 
-#progress-bar {
+/* Settings Panel */
+.settings-panel {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 300px;
+    height: 100vh;
+    background: white;
+    box-shadow: -2px 0 4px rgba(0,0,0,0.1);
+    padding-top: calc(var(--spacing-xl) + 48px); /* Add space for header */
+    padding-left: var(--spacing-xl);
+    padding-right: var(--spacing-xl);
+    padding-bottom: var(--spacing-xl);
+    transition: all var(--transition-normal);
+    z-index: 1000;
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+.settings-panel.active {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+/* Move the panel out of the parent container */
+#parent-controls {
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+
+.close-button {
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    font-size: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+}
+
+.close-button:hover {
+    color: var(--text-primary);
+    transform: scale(1.1);
+}
+
+/* Settings Panel Overlay */
+.settings-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-normal);
+    z-index: 999;
+}
+
+.settings-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Loading Indicator */
+.loading-indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 2em;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 10;
+    border-radius: 12px;
 }
 
-#completion-message {
-    font-size: 1.5em;
-    color: #4CAF50;
-    margin-top: 1em;
+.loading-indicator::after {
+    content: '';
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--primary-light);
+    border-top-color: var(--primary-color);
+    border-radius: 50%;
+    animation: loading-spin 1s linear infinite;
+    margin-top: var(--spacing-md);
+}
+
+@keyframes loading-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Animations */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes celebrate {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .word-input-container {
+        flex-direction: column;
+    }
+
+    .settings-panel {
+        width: 100%;
+        right: -100%;
+    }
+
+    .wizard-step {
+        padding: var(--spacing-md);
+    }
+}
+
+/* High Contrast Mode */
+body[data-high-contrast="true"] {
+    --primary-color: #000000;
+    --primary-light: #333333;
+    --primary-dark: #000000;
+    --text-primary: #000000;
+    --background-light: #ffffff;
+}
+
+/* Dyslexic Font */
+body[data-dyslexic="true"] {
+    font-family: 'Comic Neue', sans-serif;
 }
