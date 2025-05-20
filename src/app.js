@@ -1,6 +1,6 @@
 console.log('App.js loaded and starting initialization');
 
-import { extractTextFromImage } from './ocr';
+import { extractTextFromImage } from 'openrouter';
 import { speakText } from './textToSpeech';
 import confetti from 'canvas-confetti';
 import { gsap } from 'gsap';
@@ -20,7 +20,7 @@ class VocabularyApp {
 
     async initializeOCR() {
         try {
-            const { extractTextFromImage } = await import('./ocr.js');
+            const { extractTextFromImage } = await import('openrouter');
             this.ocrModule = { extractTextFromImage };
             console.log('OCR module initialized successfully');
         } catch (error) {
