@@ -30,7 +30,7 @@ The **Child-Friendly Vocabulary Study Tool** is a simple and intuitive web appli
   - Easy-to-use "Upload Image" button for uploading images containing vocabulary words and definitions.
   - Supports common image formats like JPEG and PNG.
 - **Accurate Text Extraction**
-  - Utilizes a reliable in-browser OCR library (e.g., Tesseract.js) to extract text from images.
+  - Utilizes a reliable in-browser OCR library (e.g., OpenRouter API) to extract text from images.
   - **Parent Review and Edit**
     - Parents can review and edit the extracted vocabulary words and definitions to ensure accuracy before the child uses them.
 
@@ -118,13 +118,13 @@ The **Child-Friendly Vocabulary Study Tool** is a simple and intuitive web appli
 ### In-Browser OCR Setup
 
 1. **Choose an In-Browser OCR Library**
-   - We recommend using Tesseract.js for text extraction from images.
+   - We recommend using OpenRouter API for text extraction from images.
 
 2. **Install the OCR Library**
-   - If using Node.js and npm, install Tesseract.js by running:
+   - If using Node.js and npm, install OpenRouter API by running:
 
    ```bash
-   npm install tesseract.js
+   npm install openrouter
    ```
 
 3. **Configure OCR Settings**
@@ -178,7 +178,7 @@ The **Child-Friendly Vocabulary Study Tool** is a simple and intuitive web appli
   - Optionally using a framework like React.js or Vue.js for enhanced UI responsiveness.
 
 - **APIs and Libraries**
-  - In-Browser OCR: For text extraction from uploaded images (e.g., Tesseract.js).
+  - In-Browser OCR: For text extraction from uploaded images (e.g., OpenRouter API).
   - Web Speech API: For in-browser text-to-speech functionality.
   - Accessibility Libraries: Ensuring the application is accessible to all users.
 
